@@ -1,0 +1,119 @@
+# PCBuilder Master Docker Compose Configuration
+version: '3.8'
+
+services:
+  # Database Service (SQL Server 2022)
+  db:
+    container_name: pcbuilder_db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD:-P@ssw0rd!123}
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+      - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "${DB_PASSWORD:-P@ssw0rd!123}", "-Q", "SELECT 1", "-C"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - pcbuilder_network
+
+  # Distributed Cache Service (Redis)
+  redis:
+    container_name: pcbuilder_redis
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pcbuilder_network
+
+  # AI Recommendation Service Placeholder
+  ai:
+    container_name: pcbuilder_ai
+    build:
+      context: .
+      dockerfile: docker/ai/Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    networks:
+      - pcbuilder_network
+
+  # ASP.NET Core 9.0 Web API Backend Service
+  api:
+    container_name: pcbuilder_api
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=PCBuilderDb;User Id=sa;Password=${DB_PASSWORD:-P@ssw0rd!123};TrustServerCertificate=True;
+      - RedisConnection=redis:6379
+      - JWT_SECRET=${JWT_SECRET:-SuperSecretKey123!_NeedsReplacingInProd}
+      - JWT_ISSUER=${JWT_ISSUER:-PCBuilderIssuer}
+      - JWT_AUDIENCE=${JWT_AUDIENCE:-PCBuilderAudience}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - pcbuilder_network
+
+  # React Frontend Client Static Server (Fallback Production Server)
+  client:
+    container_name: pcbuilder_client
+    build:
+      context: .
+      dockerfile: docker/client/Dockerfile
+    restart: always
+    ports:
+      - "3000:80"
+    networks:
+      - pcbuilder_network
+
+  # Nginx Reverse Proxy / Load Balancer Route Gateway
+  nginx:
+    container_name: pcbuilder_nginx
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - client
+    networks:
+      - pcbuilder_network
+
+volumes:
+  mssql_data:
+    name: pcbuilder_mssql_data
+  redis_data:
+    name: pcbuilder_redis_data
+
+networks:
+  pcbuilder_network:
+    name: pcbuilder_network
+    driver: bridge

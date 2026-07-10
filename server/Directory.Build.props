@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <!-- Override paths to avoid URL-encoding bugs in MSBuild on Linux when folder path has special characters/question marks -->
+    <BaseIntermediateOutputPath>obj/</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>obj/</MSBuildProjectExtensionsPath>
+    
+    <!-- Code Quality & Warnings Configuration -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <NoWarn>$(NoWarn);CA1716</NoWarn>
+  </PropertyGroup>
+</Project>
+

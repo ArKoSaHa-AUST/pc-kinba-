@@ -1,0 +1,67 @@
+name: Security & Vulnerability Scanning
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 0 * * 1' # Runs weekly on Mondays at midnight
+  workflow_call:
+
+jobs:
+  dependencies-scan:
+    name: Scan Dependencies & Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore PCBuilder.sln
+
+      - name: Check C# Dependencies for Vulnerabilities
+        run: dotnet list PCBuilder.sln package --vulnerable --include-transitive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Check Node Dependencies for Vulnerabilities
+        working-directory: client
+        run: npm audit --audit-level=high
+
+      - name: Scan Repository Secrets (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true # Prevents failure if gitleaks limits or quota fails, but alerts will show
+
+  trivy-scan:
+    name: Trivy Container Image Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Local API Image for Scanning
+        run: |
+          docker build -t pcbuilder-api:test -f docker/api/Dockerfile .
+
+      - name: Run Trivy vulnerability scanner on API Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'pcbuilder-api:test'
+          format: 'table'
+          exit-code: '1' # Fails the build if vulnerabilities are found
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'

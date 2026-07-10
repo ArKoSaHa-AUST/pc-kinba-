@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Override paths to avoid URL-encoding bugs in MSBuild on Linux when folder path has special characters/question marks -->
+    <BaseIntermediateOutputPath>obj/</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>obj/</MSBuildProjectExtensionsPath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,2 @@
+* main                d3479d0 [origin/main] ci: upgrade Node version to 24 and configure conditional NPM caching
+  remotes/origin/main d3479d0 ci: upgrade Node version to 24 and configure conditional NPM caching

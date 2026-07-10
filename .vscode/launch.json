@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Web API (Local)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Build Backend",
+      "program": "${workspaceFolder}/server/src/PCBuilder.API/bin/Debug/net9.0/PCBuilder.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/server/src/PCBuilder.API",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "learning on: (https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Attach to API Container",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickRemoteProcess}",
+      "pipeTransport": {
+        "pipeCwd": "${workspaceFolder}",
+        "pipeProgram": "docker",
+        "pipeArgs": [
+          "exec",
+          "-i",
+          "pcbuilder_api"
+        ],
+        "debuggerPath": "/vsdbg/vsdbg"
+      },
+      "sourceFileMap": {
+        "/src": "${workspaceFolder}"
+      }
+    }
+  ]
+}
