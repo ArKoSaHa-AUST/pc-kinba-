@@ -127,6 +127,8 @@ To run C# unit and integration tests:
 ./build.sh test
 ```
 
+By Tonima
+
 ---
 
 ## 7. Production Deployment Guidelines
