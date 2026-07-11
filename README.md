@@ -131,9 +131,14 @@ To run C# unit and integration tests:
 
 ## 7. Production Deployment Guidelines
 
-When deploying to production, follow these practices:
-1.  **Configure Environment**: Set the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.
-2.  **Database Protection**: Change the default SQL Server password (`MSSQL_SA_PASSWORD`) to a cryptographically secure string. Do **NOT** commit it to VCS.
-3.  **Secrets Management**: Store API keys (`GEMINI_API_KEY`, `JWT_SECRET`) securely in a production Vault, Azure Key Vault, or Kubernetes Secrets.
-4.  **Reverse Proxy**: In production, Nginx should bind to port `443` with valid SSL certificates. Enforce HTTP to HTTPS redirection.
-5.  **Multi-Stage Serving**: The client is built in a Node container and then copied into Nginx. The Nginx service is optimized for serving static gzip/brotli bundles.
+When moving your application to a production environment, ensure the following practices are implemented:
+
+Environment Configuration: Set the ASPNETCORE_ENVIRONMENT variable explicitly to Production.
+
+Database Security: Update the default SQL Server password (MSSQL_SA_PASSWORD) to a strong, cryptographically secure string. Never commit this password to version control systems (VCS).
+
+Secrets Management: Keep sensitive credentials—such as your GEMINI_API_KEY and JWT_SECRET—protected by storing them in a dedicated production manager like HashiCorp Vault, Azure Key Vault, or Kubernetes Secrets.
+
+Reverse Proxy Configuration: Configure Nginx to bind to port 443 using valid SSL/TLS certificates, and mandate an automatic redirect from HTTP to HTTPS.
+
+Multi-Stage Serving Deployment: Use a multi-stage process where the client application is built within a Node.js container and its assets are then transferred to Nginx. Optimize the Nginx service to efficiently serve compressed static bundles (Gzip and Brotli).
