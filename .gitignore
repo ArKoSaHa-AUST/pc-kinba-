@@ -86,3 +86,8 @@ docker-data/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Temporary files
+branches.txt
+mailmap.txt
+
