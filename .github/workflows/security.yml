@@ -57,7 +57,7 @@ jobs:
           docker build -t pcbuilder-api:test -f docker/api/Dockerfile .
 
       - name: Run Trivy vulnerability scanner on API Image
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           image-ref: 'pcbuilder-api:test'
           format: 'table'
