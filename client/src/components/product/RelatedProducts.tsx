@@ -6,31 +6,35 @@ const relatedProducts = [
   {
     id: 'cpu-ryzen-7600x',
     name: 'AMD Ryzen 5 7600X',
-    image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=400',
+    image:
+      'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=400',
     price: '$229',
-    rating: 4.8
+    rating: 4.8,
   },
   {
     id: 'mb-b650-tomahawk',
     name: 'MSI MAG B650 TOMAHAWK',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400',
+    image:
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400',
     price: '$199',
-    rating: 4.7
+    rating: 4.7,
   },
   {
     id: 'psu-rm750e',
     name: 'Corsair RM750e (2023)',
-    image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=400',
+    image:
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=400',
     price: '$99',
-    rating: 4.9
+    rating: 4.9,
   },
   {
     id: 'ram-flare-x5',
     name: 'G.Skill Flare X5 32GB',
-    image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&q=80&w=400',
+    image:
+      'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&q=80&w=400',
     price: '$105',
-    rating: 4.6
-  }
+    rating: 4.6,
+  },
 ];
 
 export default function RelatedProducts() {
@@ -40,7 +44,7 @@ export default function RelatedProducts() {
     <section className="py-16">
       <div className="container max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold mb-8">Frequently Bought Together</h2>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {relatedProducts.map((product, idx) => (
             <motion.div
@@ -54,9 +58,9 @@ export default function RelatedProducts() {
               onClick={() => navigate(`/product/${product.id}`)}
             >
               <div className="aspect-square bg-gray-900 rounded-xl mb-4 p-4 flex items-center justify-center overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
+                <img
+                  src={product.image}
+                  alt={product.name}
                   className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

@@ -16,46 +16,50 @@ const MOCK_RESULTS = [
     id: 'gpu-rtx-5060-ti',
     name: 'NVIDIA GeForce RTX 5060 Ti',
     brand: 'NVIDIA',
-    image: 'https://images.unsplash.com/photo-1590253232292-5c0c4c04e428?auto=format&fit=crop&q=80&w=800',
+    image:
+      'https://images.unsplash.com/photo-1590253232292-5c0c4c04e428?auto=format&fit=crop&q=80&w=800',
     price: '$399',
     rating: 4.8,
     reviews: 124,
     aiRecommended: true,
-    category: 'GPU'
+    category: 'GPU',
   },
   {
     id: 'cpu-ryzen-7700',
     name: 'AMD Ryzen 7 7700',
     brand: 'AMD',
-    image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=800',
+    image:
+      'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80&w=800',
     price: '$329',
     rating: 4.7,
     reviews: 89,
     aiRecommended: true,
-    category: 'CPU'
+    category: 'CPU',
   },
   {
     id: 'ssd-990-pro',
     name: 'Samsung 990 Pro 2TB',
     brand: 'Samsung',
-    image: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&q=80&w=800',
+    image:
+      'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&q=80&w=800',
     price: '$169',
     rating: 4.9,
     reviews: 312,
     aiRecommended: false,
-    category: 'Storage'
+    category: 'Storage',
   },
   {
     id: 'mb-asus-rog',
     name: 'ASUS ROG Strix B650E-F',
     brand: 'ASUS',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
+    image:
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
     price: '$259',
     rating: 4.6,
     reviews: 56,
     aiRecommended: true,
-    category: 'Motherboard'
-  }
+    category: 'Motherboard',
+  },
 ];
 
 export default function SearchPage() {
@@ -90,14 +94,17 @@ export default function SearchPage() {
 
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         {/* Search Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-            Find Your <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Next Upgrade</span>
+            Find Your{' '}
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              Next Upgrade
+            </span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             AI-powered search to discover the perfect components for your ultimate build.
@@ -105,16 +112,20 @@ export default function SearchPage() {
         </motion.div>
 
         {/* Search Bar */}
-        <motion.div 
+        <motion.div
           className="w-full max-w-3xl relative z-20"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <form onSubmit={handleSearch} className="relative group">
-            <div className={`absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 bg-gradient-to-r from-cyan-400 to-purple-500 ${isFocused ? 'opacity-75' : ''}`}></div>
+            <div
+              className={`absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 bg-gradient-to-r from-cyan-400 to-purple-500 ${isFocused ? 'opacity-75' : ''}`}
+            ></div>
             <div className="relative flex items-center bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-              <Search className={`ml-6 w-6 h-6 transition-colors duration-300 ${isFocused ? 'text-cyan-400' : 'text-gray-500'}`} />
+              <Search
+                className={`ml-6 w-6 h-6 transition-colors duration-300 ${isFocused ? 'text-cyan-400' : 'text-gray-500'}`}
+              />
               <input
                 ref={inputRef}
                 type="text"
@@ -125,7 +136,7 @@ export default function SearchPage() {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setTimeout(() => setIsFocused(false), 200)}
               />
-              <button 
+              <button
                 type="submit"
                 className="mr-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
               >
@@ -163,13 +174,15 @@ export default function SearchPage() {
                 {query.length > 1 && (
                   <div className="p-2">
                     {[1, 2, 3].map((_, idx) => (
-                      <button 
+                      <button
                         key={idx}
                         className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors text-left"
                         onClick={() => handleSuggestionClick(`${query} model ${idx + 1}`)}
                       >
                         <Search className="w-4 h-4 text-gray-500" />
-                        <span className="text-gray-300">{query} <span className="text-gray-500">model {idx + 1}</span></span>
+                        <span className="text-gray-300">
+                          {query} <span className="text-gray-500">model {idx + 1}</span>
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -182,7 +195,7 @@ export default function SearchPage() {
         {/* Search Results */}
         <AnimatePresence>
           {hasSearched && (
-            <motion.div 
+            <motion.div
               className="w-full mt-24"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -191,10 +204,12 @@ export default function SearchPage() {
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-semibold">Results for "{query}"</h2>
                 <div className="flex gap-4">
-                  <span className="text-gray-400 text-sm">{MOCK_RESULTS.length} products found</span>
+                  <span className="text-gray-400 text-sm">
+                    {MOCK_RESULTS.length} products found
+                  </span>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {MOCK_RESULTS.map((product, idx) => (
                   <motion.div
@@ -209,8 +224,8 @@ export default function SearchPage() {
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
                     <div className="relative h-full bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden flex flex-col">
                       <div className="relative h-48 overflow-hidden bg-white/5 p-6 flex items-center justify-center">
-                        <img 
-                          src={product.image} 
+                        <img
+                          src={product.image}
                           alt={product.name}
                           className="object-contain h-full w-full transform group-hover:scale-110 transition-transform duration-700 ease-out drop-shadow-2xl"
                         />
@@ -221,8 +236,12 @@ export default function SearchPage() {
                         )}
                       </div>
                       <div className="p-5 flex-1 flex flex-col">
-                        <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">{product.brand}</span>
-                        <h3 className="font-semibold text-lg text-white mb-2 leading-tight">{product.name}</h3>
+                        <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">
+                          {product.brand}
+                        </span>
+                        <h3 className="font-semibold text-lg text-white mb-2 leading-tight">
+                          {product.name}
+                        </h3>
                         <div className="flex items-center gap-2 mb-4">
                           <div className="flex items-center text-yellow-400">
                             <Star className="w-4 h-4 fill-current" />
@@ -252,7 +271,7 @@ export default function SearchPage() {
 
         {/* Initial Empty State Categories (only show if not searched) */}
         {!hasSearched && (
-          <motion.div 
+          <motion.div
             className="w-full mt-24 max-w-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -266,7 +285,10 @@ export default function SearchPage() {
                 { icon: <HardDrive />, name: 'Storage' },
                 { icon: <Zap />, name: 'Power Supplies' },
               ].map((cat, idx) => (
-                <div key={idx} className="bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all hover:-translate-y-1">
+                <div
+                  key={idx}
+                  className="bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all hover:-translate-y-1"
+                >
                   <div className="text-cyan-400">{cat.icon}</div>
                   <span className="font-medium">{cat.name}</span>
                 </div>

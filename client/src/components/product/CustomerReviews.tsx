@@ -5,23 +5,27 @@ const reviews = [
   {
     id: 1,
     name: 'Alex Mercer',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100',
+    avatar:
+      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100',
     rating: 5,
     date: '2 weeks ago',
     verified: true,
-    content: 'Absolutely incredible performance jump from my old 3060. The 1080p frame rates are locked at 144+ in almost everything I play. Runs super cool too, haven\'t seen it go above 65C.',
-    likes: 24
+    content:
+      "Absolutely incredible performance jump from my old 3060. The 1080p frame rates are locked at 144+ in almost everything I play. Runs super cool too, haven't seen it go above 65C.",
+    likes: 24,
   },
   {
     id: 2,
     name: 'Sarah Chen',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100',
+    avatar:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100',
     rating: 4,
     date: '1 month ago',
     verified: true,
-    content: 'Great card for the price. Only knocking off a star because 8GB of VRAM feels a bit limiting for the future, but for right now, it handles 1440p decently well with DLSS on.',
-    likes: 12
-  }
+    content:
+      'Great card for the price. Only knocking off a star because 8GB of VRAM feels a bit limiting for the future, but for right now, it handles 1440p decently well with DLSS on.',
+    likes: 12,
+  },
 ];
 
 export default function CustomerReviews() {
@@ -33,7 +37,9 @@ export default function CustomerReviews() {
             <h2 className="text-3xl md:text-4xl font-bold mb-2">Customer Reviews</h2>
             <div className="flex items-center gap-4">
               <div className="flex text-yellow-400">
-                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-5 h-5 fill-current" />)}
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star key={s} className="w-5 h-5 fill-current" />
+                ))}
               </div>
               <span className="font-bold text-xl">4.8</span>
               <span className="text-gray-400">Based on 124 reviews</span>
@@ -46,7 +52,7 @@ export default function CustomerReviews() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review, idx) => (
-            <motion.div 
+            <motion.div
               key={review.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +62,11 @@ export default function CustomerReviews() {
             >
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+                  <img
+                    src={review.avatar}
+                    alt={review.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   <div>
                     <h4 className="font-bold text-white flex items-center gap-2">
                       {review.name}
@@ -67,13 +77,16 @@ export default function CustomerReviews() {
                 </div>
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'fill-current' : 'text-gray-600'}`} />
+                    <Star
+                      key={i}
+                      className={`w-4 h-4 ${i < review.rating ? 'fill-current' : 'text-gray-600'}`}
+                    />
                   ))}
                 </div>
               </div>
-              
+
               <p className="text-gray-300 leading-relaxed mb-6">"{review.content}"</p>
-              
+
               <div className="flex items-center gap-2">
                 <button className="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors">
                   <ThumbsUp className="w-4 h-4" /> Helpful ({review.likes})

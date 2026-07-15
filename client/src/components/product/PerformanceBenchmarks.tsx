@@ -1,5 +1,14 @@
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from 'recharts';
 import { MonitorPlay, Settings, Layers } from 'lucide-react';
 
 const benchmarkData = [
@@ -15,16 +24,33 @@ export default function PerformanceBenchmarks() {
       <div className="container max-w-7xl mx-auto px-6">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Performance Benchmarks</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Real-world gaming performance across popular titles at maximum settings.</p>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Real-world gaming performance across popular titles at maximum settings.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {[
-            { icon: <MonitorPlay />, title: '1080p Gaming', desc: 'Flawless >100 FPS on ultra settings.', highlight: 'Ultra' },
-            { icon: <Settings />, title: '1440p Gaming', desc: 'Smooth >60 FPS on high/ultra settings.', highlight: 'High' },
-            { icon: <Layers />, title: 'Ray Tracing', desc: 'Excellent performance with DLSS 3.5.', highlight: 'DLSS' },
+            {
+              icon: <MonitorPlay />,
+              title: '1080p Gaming',
+              desc: 'Flawless >100 FPS on ultra settings.',
+              highlight: 'Ultra',
+            },
+            {
+              icon: <Settings />,
+              title: '1440p Gaming',
+              desc: 'Smooth >60 FPS on high/ultra settings.',
+              highlight: 'High',
+            },
+            {
+              icon: <Layers />,
+              title: 'Ray Tracing',
+              desc: 'Excellent performance with DLSS 3.5.',
+              highlight: 'DLSS',
+            },
           ].map((card, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -44,7 +70,7 @@ export default function PerformanceBenchmarks() {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -53,16 +79,33 @@ export default function PerformanceBenchmarks() {
         >
           <h3 className="text-xl font-bold mb-8 text-white">Average FPS</h3>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={benchmarkData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-              <XAxis dataKey="game" stroke="rgba(255,255,255,0.4)" tick={{fill: 'rgba(255,255,255,0.6)'}} axisLine={false} tickLine={false} />
-              <YAxis stroke="rgba(255,255,255,0.4)" tick={{fill: 'rgba(255,255,255,0.6)'}} axisLine={false} tickLine={false} />
-              <Tooltip 
-                cursor={{fill: 'rgba(255,255,255,0.05)'}}
-                contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }}
+            <BarChart data={benchmarkData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="rgba(255,255,255,0.05)"
+                vertical={false}
+              />
+              <XAxis
+                dataKey="game"
+                stroke="rgba(255,255,255,0.4)"
+                tick={{ fill: 'rgba(255,255,255,0.6)' }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                stroke="rgba(255,255,255,0.4)"
+                tick={{ fill: 'rgba(255,255,255,0.6)' }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
+                cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                contentStyle={{
+                  backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  color: '#fff',
+                }}
               />
               <Legend wrapperStyle={{ paddingTop: '20px' }} />
               <Bar dataKey="1080p" fill="#00e5ff" radius={[4, 4, 0, 0]} />

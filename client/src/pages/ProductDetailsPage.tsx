@@ -27,7 +27,7 @@ export default function ProductDetailsPage() {
       <ProductGallery />
       <CustomerReviews />
       <RelatedProducts />
-      
+
       <StickyBuyBar />
       <FloatingAIAssistant />
     </div>

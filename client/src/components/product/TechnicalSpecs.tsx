@@ -10,7 +10,7 @@ const specsData = [
       { label: 'Core Clock', value: '2.1 GHz' },
       { label: 'Boost Clock', value: '2.5 GHz' },
       { label: 'CUDA Cores', value: '5120' },
-    ]
+    ],
   },
   {
     category: 'Memory',
@@ -19,7 +19,7 @@ const specsData = [
       { label: 'Memory Type', value: 'GDDR6' },
       { label: 'Memory Bus', value: '128-bit' },
       { label: 'Bandwidth', value: '288 GB/s' },
-    ]
+    ],
   },
   {
     category: 'Power & Dimensions',
@@ -28,8 +28,8 @@ const specsData = [
       { label: 'Suggested PSU', value: '550W' },
       { label: 'Length', value: '242 mm' },
       { label: 'Slot Size', value: '2 Slots' },
-    ]
-  }
+    ],
+  },
 ];
 
 export default function TechnicalSpecs() {
@@ -39,10 +39,10 @@ export default function TechnicalSpecs() {
     <section className="py-16 bg-gray-900/20">
       <div className="container max-w-4xl mx-auto px-6">
         <h2 className="text-3xl font-bold mb-12 text-center">Technical Specifications</h2>
-        
+
         <div className="space-y-4">
           {specsData.map((section, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -55,9 +55,11 @@ export default function TechnicalSpecs() {
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               >
                 <span className="text-lg font-semibold text-white">{section.category}</span>
-                <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`}
+                />
               </button>
-              
+
               <AnimatePresence>
                 {openIndex === idx && (
                   <motion.div
