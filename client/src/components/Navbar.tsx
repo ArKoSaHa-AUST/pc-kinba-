@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, LogIn, Moon } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -20,13 +22,13 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="navbar-container container">
-        <div className="logo">
+        <Link to="/" className="logo">
           <span className="gradient-text">PC-KINBA</span>
-        </div>
+        </Link>
 
         <ul className="nav-links">
           <li>
-            <a href="#home">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <a href="#builder">PC Builder</a>
@@ -46,7 +48,7 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-actions">
-          <button className="icon-btn">
+          <button className="icon-btn" onClick={() => navigate('/search')}>
             <Search size={20} />
           </button>
           <button className="icon-btn">
