@@ -47,7 +47,7 @@ export default function Compatibility() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {compatibilityData.map((item, idx) => {
             let statusStyle = '';
-            let StatusIcon = CheckCircle2;
+            let StatusIcon;
 
             if (item.status === 'optimal') {
               statusStyle =
