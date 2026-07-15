@@ -1,6 +1,30 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Shield, Cpu, Activity, Heart, Share2, ShoppingCart } from 'lucide-react';
+import {
+  Star,
+  Shield,
+  Cpu,
+  Activity,
+  Heart,
+  Share2,
+  ShoppingCart,
+  ChevronRight,
+  CreditCard,
+  Truck,
+  RotateCcw,
+  Zap,
+  MemoryStick,
+  Monitor,
+} from 'lucide-react';
+
+const keyFeatures = [
+  { label: 'MPN', value: 'GV-N506TAERO-OC-8GD' },
+  { label: 'Model', value: 'GeForce RTX 5060 Ti 8GB Aero OC' },
+  { label: 'Video Memory', value: '8GB GDDR7, Memory Clock: 28 Gbps' },
+  { label: 'Core Clock', value: 'Base: 2407 MHz · Boost: 2557 MHz' },
+  { label: 'CUDA Cores', value: '4608, Memory Bandwidth: Up to 448 GB/s' },
+  { label: 'Display Outputs', value: '3x DisplayPort 2.1, 1x HDMI 2.1' },
+];
 
 export default function ProductHero() {
   const [activeImage, setActiveImage] = useState(
@@ -14,12 +38,11 @@ export default function ProductHero() {
   ];
 
   return (
-    <section className="relative pt-[120px] pb-[60px] lg:pb-[120px] flex items-center z-10">
+    <section className="relative pt-[40px] pb-[60px] lg:pb-[120px] flex items-center z-10">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-1/4 -right-1/4 w-[40rem] h-[40rem] bg-cyan-500/10 rounded-full blur-[120px] mix-blend-screen" />
         <div className="absolute bottom-1/4 -left-1/4 w-[40rem] h-[40rem] bg-purple-500/10 rounded-full blur-[120px] mix-blend-screen" />
-        {/* Floating particles */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
       </div>
 
@@ -79,8 +102,9 @@ export default function ProductHero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-            className="flex flex-col gap-8 pt-4 lg:pt-12"
+            className="flex flex-col gap-12 pt-0"
           >
+            {/* Header: Brand, Title, Rating */}
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-cyan-400 font-semibold uppercase tracking-widest text-sm">
@@ -91,11 +115,11 @@ export default function ProductHero() {
                   <Activity className="w-4 h-4" /> In Stock
                 </span>
               </div>
-              <h1 className="text-[40px] lg:text-[64px] font-bold leading-[1.1] tracking-tight mb-6 text-white">
+              <h1 className="text-[36px] lg:text-[56px] font-bold leading-[1.1] tracking-tight mb-5 text-white">
                 GeForce RTX <br /> 5060 Ti
               </h1>
 
-              <div className="flex flex-wrap items-center gap-6 text-sm mb-2">
+              <div className="flex flex-wrap items-center gap-6 text-sm mb-6">
                 <div className="flex items-center gap-2">
                   <div className="flex text-yellow-400">
                     {[...Array(5)].map((_, i) => (
@@ -112,9 +136,55 @@ export default function ProductHero() {
                   <Shield className="w-4 h-4" /> 3 Year Warranty
                 </div>
               </div>
+
+              {/* Quick Info Pills */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                {[
+                  { label: 'Status', value: 'In Stock', color: 'text-green-400' },
+                  { label: 'Product Code', value: '58241' },
+                  { label: 'Brand', value: 'NVIDIA' },
+                  { label: 'Series', value: 'RTX 50' },
+                ].map((pill, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 text-xs font-medium bg-white/5 border border-white/10 rounded-full px-4 py-2"
+                  >
+                    <span className="text-gray-500">{pill.label}:</span>
+                    <span className={`font-bold ${pill.color || 'text-white'}`}>{pill.value}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Price & AI Score Box */}
+            {/* Key Features (Moved Up) */}
+            <div className="glass-card p-8">
+              <h3 className="text-base font-bold text-white uppercase tracking-wider mb-6 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                  <Monitor className="w-4 h-4 text-cyan-400" />
+                </div>
+                Key Features
+              </h3>
+              <div className="space-y-4">
+                {keyFeatures.map((feat, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-0 py-3 border-b border-white/5 last:border-b-0"
+                  >
+                    <span className="text-sm font-semibold text-gray-500 sm:w-[160px] shrink-0">
+                      {feat.label}
+                    </span>
+                    <span className="text-[15px] text-gray-200 font-medium">{feat.value}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className="mt-6 text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center gap-1.5 transition-colors group">
+                View Full Specifications{' '}
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Price & AI Score Box (Moved Down) */}
             <div className="glass-card p-8 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 blur-[50px] rounded-full pointer-events-none" />
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
@@ -127,6 +197,9 @@ export default function ProductHero() {
                       $399
                     </span>
                     <span className="text-xl text-gray-500 line-through">$449</span>
+                    <span className="text-sm font-bold text-green-400 bg-green-400/10 px-2.5 py-1 rounded-lg">
+                      -11%
+                    </span>
                   </div>
                 </div>
 
@@ -148,7 +221,6 @@ export default function ProductHero() {
                         stroke="#00e5ff"
                         strokeWidth="2"
                         strokeDasharray="93, 100"
-                        className="animate-[spin_2s_ease-out]"
                         strokeLinecap="round"
                       />
                     </svg>
@@ -177,11 +249,16 @@ export default function ProductHero() {
               </div>
             </div>
 
+            {/* Quick Spec Cards */}
             <div className="grid grid-cols-3 gap-4">
               {[
                 { icon: <Cpu className="w-6 h-6" />, label: 'Architecture', val: 'Blackwell' },
-                { icon: <Activity className="w-6 h-6" />, label: 'VRAM', val: '8GB GDDR6' },
-                { icon: <Shield className="w-6 h-6" />, label: 'Power', val: '115W' },
+                {
+                  icon: <MemoryStick className="w-6 h-6" />,
+                  label: 'VRAM',
+                  val: '8GB GDDR7',
+                },
+                { icon: <Zap className="w-6 h-6" />, label: 'TDP', val: '150W' },
               ].map((spec, i) => (
                 <div
                   key={i}
@@ -192,6 +269,38 @@ export default function ProductHero() {
                     {spec.label}
                   </div>
                   <div className="text-sm font-bold text-white">{spec.val}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Payment & Shipping Info */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                {
+                  icon: <CreditCard className="w-5 h-5" />,
+                  title: 'Payment Options',
+                  desc: 'Visa, Mastercard, PayPal',
+                },
+                {
+                  icon: <Truck className="w-5 h-5" />,
+                  title: 'Free Shipping',
+                  desc: 'Orders over $100',
+                },
+                {
+                  icon: <RotateCcw className="w-5 h-5" />,
+                  title: 'Easy Returns',
+                  desc: '30-day return policy',
+                },
+              ].map((info, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/5 transition-colors"
+                >
+                  <div className="text-cyan-400 mt-0.5">{info.icon}</div>
+                  <div>
+                    <div className="text-sm font-bold text-white mb-0.5">{info.title}</div>
+                    <div className="text-xs text-gray-500">{info.desc}</div>
+                  </div>
                 </div>
               ))}
             </div>

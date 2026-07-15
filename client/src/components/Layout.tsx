@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps) {
         }}
       ></div>
       <Navbar />
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen" style={{ paddingTop: '80px' }}>{children}</main>
       <Footer />
     </>
   );
