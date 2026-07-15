@@ -1,6 +1,16 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Cpu, Monitor, HardDrive, ArrowRight, Zap, Star } from 'lucide-react';
+import {
+  Search,
+  Sparkles,
+  Cpu,
+  Monitor,
+  HardDrive,
+  ArrowRight,
+  Zap,
+  Star,
+  Heart,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const MOCK_SUGGESTIONS = [
@@ -85,46 +95,43 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-24 px-6 relative overflow-hidden">
+    <div className="min-h-screen pt-[120px] pb-[120px] relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]" />
         <div className="absolute top-1/3 right-1/4 w-[30rem] h-[30rem] bg-cyan-400/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
+      <div className="container max-w-[1440px] mx-auto px-6 lg:px-8 flex flex-col items-center">
         {/* Search Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-[80px] mt-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-            Find Your{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              Next Upgrade
-            </span>
+          <h1 className="text-hero mb-4">
+            Find Your <span className="gradient-text">Next Upgrade</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+          <p className="text-subtitle max-w-2xl mx-auto">
             AI-powered search to discover the perfect components for your ultimate build.
           </p>
         </motion.div>
 
         {/* Search Bar */}
         <motion.div
-          className="w-full max-w-3xl relative z-20"
+          className="w-full max-w-3xl relative z-20 mb-[80px]"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <form onSubmit={handleSearch} className="relative group">
             <div
-              className={`absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 bg-gradient-to-r from-cyan-400 to-purple-500 ${isFocused ? 'opacity-75' : ''}`}
+              className={`absolute -inset-1 rounded-[24px] blur-md opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 bg-gradient-to-r from-cyan-400 to-purple-500 ${isFocused ? 'opacity-75' : ''}`}
             ></div>
-            <div className="relative flex items-center bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative flex items-center glass border border-white/10 rounded-[20px] overflow-hidden shadow-2xl h-[80px]">
               <Search
-                className={`ml-6 w-6 h-6 transition-colors duration-300 ${isFocused ? 'text-cyan-400' : 'text-gray-500'}`}
+                className={`ml-6 w-7 h-7 transition-colors duration-300 ${isFocused ? 'text-cyan-400' : 'text-gray-500'}`}
               />
               <input
                 ref={inputRef}
@@ -138,9 +145,9 @@ export default function SearchPage() {
               />
               <button
                 type="submit"
-                className="mr-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
+                className="mr-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
               >
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-6 h-6" />
               </button>
             </div>
           </form>
@@ -153,18 +160,18 @@ export default function SearchPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.98 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 w-full mt-4 bg-gray-900/90 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+                className="absolute top-full left-0 w-full mt-4 glass border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-30"
               >
-                <div className="p-4 border-b border-white/5">
-                  <h3 className="text-sm font-semibold text-gray-400 flex items-center gap-2 uppercase tracking-wider mb-3">
+                <div className="p-6 border-b border-white/5">
+                  <h3 className="text-sm font-semibold text-gray-400 flex items-center gap-2 uppercase tracking-wider mb-4">
                     <Zap className="w-4 h-4 text-yellow-400" /> Trending Searches
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {MOCK_SUGGESTIONS.map((suggestion, idx) => (
                       <button
                         key={idx}
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 hover:text-white transition-all text-sm"
+                        className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 hover:text-white transition-all text-sm"
                       >
                         {suggestion}
                       </button>
@@ -172,15 +179,15 @@ export default function SearchPage() {
                   </div>
                 </div>
                 {query.length > 1 && (
-                  <div className="p-2">
+                  <div className="p-3">
                     {[1, 2, 3].map((_, idx) => (
                       <button
                         key={idx}
-                        className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors text-left"
+                        className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors text-left"
                         onClick={() => handleSuggestionClick(`${query} model ${idx + 1}`)}
                       >
-                        <Search className="w-4 h-4 text-gray-500" />
-                        <span className="text-gray-300">
+                        <Search className="w-5 h-5 text-gray-500" />
+                        <span className="text-gray-300 text-lg">
                           {query} <span className="text-gray-500">model {idx + 1}</span>
                         </span>
                       </button>
@@ -192,72 +199,115 @@ export default function SearchPage() {
           </AnimatePresence>
         </motion.div>
 
+        {/* Initial Empty State Categories */}
+        <AnimatePresence>
+          {!hasSearched && (
+            <motion.div
+              className="w-full max-w-5xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-center text-gray-400 mb-8 font-medium uppercase tracking-widest text-sm">
+                Browse by Category
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  { icon: <Monitor className="w-8 h-8" />, name: 'Graphics Cards' },
+                  { icon: <Cpu className="w-8 h-8" />, name: 'Processors' },
+                  { icon: <HardDrive className="w-8 h-8" />, name: 'Storage' },
+                  { icon: <Zap className="w-8 h-8" />, name: 'Power Supplies' },
+                ].map((cat, idx) => (
+                  <div
+                    key={idx}
+                    className="glass-card hover:bg-white/5 flex flex-col items-center justify-center gap-4 cursor-pointer text-center h-[180px]"
+                  >
+                    <div className="text-cyan-400">{cat.icon}</div>
+                    <span className="font-semibold text-lg">{cat.name}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Search Results */}
         <AnimatePresence>
           {hasSearched && (
             <motion.div
-              className="w-full mt-24"
+              className="w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-semibold">Results for "{query}"</h2>
+              <div className="flex items-center justify-between mb-[48px]">
+                <h2 className="text-title">Results for "{query}"</h2>
                 <div className="flex gap-4">
-                  <span className="text-gray-400 text-sm">
-                    {MOCK_RESULTS.length} products found
-                  </span>
+                  <span className="text-gray-400">{MOCK_RESULTS.length} products found</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {MOCK_RESULTS.map((product, idx) => (
                   <motion.div
                     key={product.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group relative cursor-pointer"
+                    className="group relative cursor-pointer flex"
                     onClick={() => navigate(`/product/${product.id}`)}
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
-                    <div className="relative h-full bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden flex flex-col">
-                      <div className="relative h-48 overflow-hidden bg-white/5 p-6 flex items-center justify-center">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 pointer-events-none"></div>
+                    <div className="relative glass-card flex flex-col p-5 w-full bg-[#0a0f25]/80 hover:bg-[#0d132e]/90">
+                      {/* Image Area */}
+                      <div className="relative h-56 overflow-hidden rounded-xl bg-white/5 p-6 flex items-center justify-center mb-6">
                         <img
                           src={product.image}
                           alt={product.name}
                           className="object-contain h-full w-full transform group-hover:scale-110 transition-transform duration-700 ease-out drop-shadow-2xl"
                         />
                         {product.aiRecommended && (
-                          <div className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg shadow-cyan-500/20">
-                            <Sparkles className="w-3 h-3" /> AI Pick
+                          <div className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
+                            <Sparkles className="w-3.5 h-3.5" /> AI Pick
                           </div>
                         )}
+                        <button
+                          className="absolute top-3 right-3 p-2 rounded-full bg-black/40 text-gray-400 hover:text-white hover:bg-black/60 transition-colors backdrop-blur-md"
+                          onClick={(e) => {
+                            e.stopPropagation(); /* Add to wishlist logic */
+                          }}
+                        >
+                          <Heart className="w-4 h-4" />
+                        </button>
                       </div>
-                      <div className="p-5 flex-1 flex flex-col">
-                        <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">
+
+                      {/* Info Area */}
+                      <div className="flex-1 flex flex-col">
+                        <span className="text-caption uppercase tracking-wider mb-2 font-semibold">
                           {product.brand}
                         </span>
-                        <h3 className="font-semibold text-lg text-white mb-2 leading-tight">
+                        <h3 className="text-card-title mb-3 line-clamp-2 leading-tight">
                           {product.name}
                         </h3>
-                        <div className="flex items-center gap-2 mb-4">
+                        <div className="flex items-center gap-2 mb-6">
                           <div className="flex items-center text-yellow-400">
                             <Star className="w-4 h-4 fill-current" />
                             <span className="ml-1 text-sm font-medium">{product.rating}</span>
                           </div>
                           <span className="text-gray-500 text-sm">({product.reviews})</span>
                         </div>
-                        <div className="mt-auto flex items-end justify-between">
+
+                        {/* Price & Actions */}
+                        <div className="mt-auto pt-4 border-t border-white/5 flex items-end justify-between">
                           <div>
                             <span className="text-xs text-gray-400 block mb-1">Lowest Price</span>
                             <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400">
                               {product.price}
                             </span>
                           </div>
-                          <button className="bg-white/10 hover:bg-white/20 text-white rounded-xl p-2 transition-colors">
-                            <ArrowRight className="w-5 h-5" />
+                          <button className="button-secondary px-4 py-2 text-sm gap-2">
+                            View <ArrowRight className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
@@ -268,34 +318,6 @@ export default function SearchPage() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Initial Empty State Categories (only show if not searched) */}
-        {!hasSearched && (
-          <motion.div
-            className="w-full mt-24 max-w-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="text-center text-gray-400 mb-8 font-medium">Browse by Category</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { icon: <Monitor />, name: 'Graphics Cards' },
-                { icon: <Cpu />, name: 'Processors' },
-                { icon: <HardDrive />, name: 'Storage' },
-                { icon: <Zap />, name: 'Power Supplies' },
-              ].map((cat, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all hover:-translate-y-1"
-                >
-                  <div className="text-cyan-400">{cat.icon}</div>
-                  <span className="font-medium">{cat.name}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
       </div>
     </div>
   );

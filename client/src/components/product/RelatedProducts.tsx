@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Star, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const relatedProducts = [
@@ -35,40 +35,64 @@ const relatedProducts = [
     price: '$105',
     rating: 4.6,
   },
+  {
+    id: 'cooler-nh-d15',
+    name: 'Noctua NH-D15',
+    image:
+      'https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&q=80&w=400',
+    price: '$119',
+    rating: 4.9,
+  },
 ];
 
 export default function RelatedProducts() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-16">
-      <div className="container max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-8">Frequently Bought Together</h2>
+    <section className="py-[120px] relative overflow-hidden">
+      {/* Background flare */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="container max-w-[1440px] mx-auto px-6 lg:px-8 relative z-10">
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <h2 className="text-title mb-2">Frequently Bought Together</h2>
+            <p className="text-subtitle">Complete your ultimate build.</p>
+          </div>
+          <button className="hidden md:flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+            View All <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Horizontal Carousel */}
+        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0">
           {relatedProducts.map((product, idx) => (
             <motion.div
               key={product.id}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-4 cursor-pointer group hover:bg-white/10 transition-colors"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="glass-card min-w-[280px] md:min-w-[320px] p-5 cursor-pointer group hover:bg-white/10 transition-all duration-300 snap-center hover:shadow-[0_10px_40px_rgba(0,229,255,0.15)] flex-shrink-0"
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              <div className="aspect-square bg-gray-900 rounded-xl mb-4 p-4 flex items-center justify-center overflow-hidden">
+              <div className="aspect-[4/3] bg-gray-900 rounded-[20px] mb-6 p-6 flex items-center justify-center overflow-hidden border border-white/5">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-700 ease-out drop-shadow-2xl"
+                  loading="lazy"
                 />
               </div>
-              <h3 className="font-semibold text-white mb-2 line-clamp-1">{product.name}</h3>
-              <div className="flex items-center justify-between">
-                <span className="text-xl font-bold text-cyan-400">{product.price}</span>
-                <div className="flex items-center gap-1 text-sm text-yellow-400">
-                  <Star className="w-4 h-4 fill-current" /> {product.rating}
+              <div className="px-2">
+                <h3 className="font-bold text-white mb-3 text-lg line-clamp-1 group-hover:text-cyan-400 transition-colors">
+                  {product.name}
+                </h3>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-white">{product.price}</span>
+                  <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-300 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" /> {product.rating}
+                  </div>
                 </div>
               </div>
             </motion.div>

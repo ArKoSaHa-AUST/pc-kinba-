@@ -36,11 +36,17 @@ export default function TechnicalSpecs() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-16 bg-gray-900/20">
-      <div className="container max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-12 text-center">Technical Specifications</h2>
+    <section className="py-[120px] relative">
+      <div className="absolute inset-0 bg-gray-900/40 pointer-events-none" />
+      <div className="container max-w-[1000px] mx-auto px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-title mb-4">Technical Specifications</h2>
+          <p className="text-subtitle">
+            Deep dive into the architecture and hardware capabilities.
+          </p>
+        </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {specsData.map((section, idx) => (
             <motion.div
               key={idx}
@@ -48,16 +54,24 @@ export default function TechnicalSpecs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+              className={`glass-card overflow-hidden transition-all duration-300 ${openIndex === idx ? 'border-cyan-500/30 shadow-[0_10px_30px_rgba(0,229,255,0.1)]' : 'hover:border-white/20'}`}
             >
               <button
-                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+                className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors focus:outline-none"
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               >
-                <span className="text-lg font-semibold text-white">{section.category}</span>
-                <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openIndex === idx ? 'rotate-180' : ''}`}
-                />
+                <span
+                  className={`text-xl font-bold tracking-tight transition-colors ${openIndex === idx ? 'text-cyan-400' : 'text-white'}`}
+                >
+                  {section.category}
+                </span>
+                <div
+                  className={`p-2 rounded-full transition-colors ${openIndex === idx ? 'bg-cyan-500/10 text-cyan-400' : 'bg-white/5 text-gray-400'}`}
+                >
+                  <ChevronDown
+                    className={`w-6 h-6 transition-transform duration-500 ${openIndex === idx ? 'rotate-180' : ''}`}
+                  />
+                </div>
               </button>
 
               <AnimatePresence>
@@ -66,14 +80,18 @@ export default function TechnicalSpecs() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                   >
-                    <div className="px-6 pb-6 pt-2">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="px-8 pb-8 pt-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
                         {section.items.map((item, i) => (
-                          <div key={i} className="flex flex-col border-b border-white/5 pb-2">
-                            <span className="text-sm text-gray-500 mb-1">{item.label}</span>
-                            <span className="text-gray-200 font-medium">{item.value}</span>
+                          <div key={i} className="flex flex-col border-b border-white/5 pb-3">
+                            <span className="text-sm text-gray-500 mb-1 font-medium tracking-wide uppercase">
+                              {item.label}
+                            </span>
+                            <span className="text-gray-100 font-semibold text-lg">
+                              {item.value}
+                            </span>
                           </div>
                         ))}
                       </div>

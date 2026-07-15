@@ -30,27 +30,27 @@ const reviews = [
 
 export default function CustomerReviews() {
   return (
-    <section className="py-16">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+    <section className="py-[120px] relative">
+      <div className="container max-w-[1440px] mx-auto px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">Customer Reviews</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex text-yellow-400">
+            <h2 className="text-title mb-6">Customer Reviews</h2>
+            <div className="flex items-center gap-6">
+              <div className="flex text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.4)]">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-5 h-5 fill-current" />
+                  <Star key={s} className="w-6 h-6 fill-current" />
                 ))}
               </div>
-              <span className="font-bold text-xl">4.8</span>
-              <span className="text-gray-400">Based on 124 reviews</span>
+              <span className="font-bold text-3xl text-white">4.8</span>
+              <span className="text-gray-400 font-medium tracking-wide">Based on 124 reviews</span>
             </div>
           </div>
-          <button className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg shadow-purple-500/20">
+          <button className="bg-white hover:bg-gray-100 text-gray-900 font-bold py-4 px-8 rounded-[20px] transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
             Write a Review
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {reviews.map((review, idx) => (
             <motion.div
               key={review.id}
@@ -58,38 +58,48 @@ export default function CustomerReviews() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-gray-900/40 backdrop-blur-md border border-white/10 rounded-3xl p-8"
+              className="glass-card p-10 hover:bg-white/5 transition-colors group flex flex-col h-full"
             >
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={review.avatar}
-                    alt={review.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+              <div className="flex items-start justify-between mb-8">
+                <div className="flex items-center gap-5">
+                  <div className="relative">
+                    <img
+                      src={review.avatar}
+                      alt={review.name}
+                      className="w-14 h-14 rounded-full object-cover border-2 border-white/10"
+                    />
+                    {review.verified && (
+                      <div className="absolute -bottom-1 -right-1 bg-gray-900 rounded-full p-0.5">
+                        <CheckCircle className="w-5 h-5 text-cyan-400 fill-cyan-400/20" />
+                      </div>
+                    )}
+                  </div>
                   <div>
-                    <h4 className="font-bold text-white flex items-center gap-2">
+                    <h4 className="font-bold text-white text-lg tracking-wide mb-1">
                       {review.name}
-                      {review.verified && <CheckCircle className="w-4 h-4 text-cyan-400" />}
                     </h4>
-                    <span className="text-xs text-gray-500">{review.date}</span>
+                    <span className="text-sm text-gray-500 font-medium uppercase">
+                      {review.date}
+                    </span>
                   </div>
                 </div>
-                <div className="flex text-yellow-400">
+                <div className="flex text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.2)]">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-4 h-4 ${i < review.rating ? 'fill-current' : 'text-gray-600'}`}
+                      className={`w-5 h-5 ${i < review.rating ? 'fill-current' : 'text-gray-700'}`}
                     />
                   ))}
                 </div>
               </div>
 
-              <p className="text-gray-300 leading-relaxed mb-6">"{review.content}"</p>
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 flex-grow">
+                "{review.content}"
+              </p>
 
-              <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors">
-                  <ThumbsUp className="w-4 h-4" /> Helpful ({review.likes})
+              <div className="flex items-center gap-4 mt-auto border-t border-white/5 pt-6">
+                <button className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-cyan-400 transition-colors">
+                  <ThumbsUp className="w-5 h-5" /> Helpful ({review.likes})
                 </button>
               </div>
             </motion.div>

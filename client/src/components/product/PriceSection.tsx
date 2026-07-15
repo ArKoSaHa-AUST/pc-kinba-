@@ -28,34 +28,34 @@ const mockStores = [
 
 export default function PriceSection() {
   return (
-    <section className="py-16 relative">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <section className="py-[120px] relative">
+      <div className="container max-w-[1440px] mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Live Price Comparison */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6 }}
-            className="bg-gray-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+            className="glass-card p-8 lg:p-10 flex flex-col"
           >
-            <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+            <h3 className="text-2xl font-bold mb-8 text-white flex items-center gap-2 tracking-tight">
               Live Price Comparison
             </h3>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4 flex-1 justify-center">
               {mockStores.map((store, idx) => (
                 <div
                   key={idx}
-                  className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${idx === 0 ? 'bg-cyan-500/10 border-cyan-500/30' : 'bg-white/5 border-white/5 hover:bg-white/10'}`}
+                  className={`group flex items-center justify-between p-5 rounded-[20px] border transition-all duration-300 hover:scale-[1.02] ${idx === 0 ? 'bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border-cyan-500/30' : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/20'}`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center font-bold text-gray-400 text-sm">
+                  <div className="flex items-center gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-gray-900 border border-white/10 flex items-center justify-center font-bold text-gray-400 text-sm group-hover:border-white/20 transition-colors">
                       {store.logo}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">{store.name}</h4>
-                      <div className="flex items-center gap-2 text-xs">
+                      <h4 className="font-semibold text-white text-lg mb-1">{store.name}</h4>
+                      <div className="flex items-center gap-2 text-xs font-medium">
                         <span className={store.stock ? 'text-green-400' : 'text-red-400'}>
                           {store.stock ? 'In Stock' : 'Out of Stock'}
                         </span>
@@ -64,11 +64,11 @@ export default function PriceSection() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-xl font-bold text-white">${store.price}</span>
+                  <div className="flex items-center gap-5">
+                    <span className="text-2xl font-bold text-white">${store.price}</span>
                     <button
                       disabled={!store.stock}
-                      className={`p-2 rounded-xl transition-colors ${store.stock ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}
+                      className={`p-3 rounded-xl transition-all duration-300 ${store.stock ? 'bg-white/10 hover:bg-white/20 text-white hover:scale-110 active:scale-95' : 'bg-gray-800 text-gray-500 cursor-not-allowed'}`}
                     >
                       <ExternalLink className="w-5 h-5" />
                     </button>
@@ -84,15 +84,15 @@ export default function PriceSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gray-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col"
+            className="glass-card p-8 lg:p-10 flex flex-col"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">Price History</h3>
-              <div className="flex gap-2">
+            <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
+              <h3 className="text-2xl font-bold text-white tracking-tight">Price History</h3>
+              <div className="flex gap-2 bg-gray-900/50 p-1 rounded-xl border border-white/10">
                 {['1M', '3M', '6M', '1Y'].map((range) => (
                   <button
                     key={range}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${range === '6M' ? 'bg-white/20 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${range === '6M' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-500 hover:text-gray-300'}`}
                   >
                     {range}
                   </button>
@@ -100,12 +100,12 @@ export default function PriceSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 mb-6 bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-3 rounded-xl w-fit">
-              <TrendingDown className="w-5 h-5" />
+            <div className="flex items-center gap-3 mb-8 bg-gradient-to-r from-green-500/10 to-transparent border-l-2 border-green-500 text-green-400 px-4 py-3 rounded-r-xl w-fit">
+              <TrendingDown className="w-5 h-5 shrink-0" />
               <span className="text-sm font-medium">Price dropped by 11% in the last 6 months</span>
             </div>
 
-            <div className="flex-1 w-full min-h-[250px]">
+            <div className="flex-1 w-full min-h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                   data={mockPriceHistory}
@@ -113,7 +113,7 @@ export default function PriceSection() {
                 >
                   <defs>
                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00e5ff" stopOpacity={0.3} />
+                      <stop offset="5%" stopColor="#00e5ff" stopOpacity={0.4} />
                       <stop offset="95%" stopColor="#00e5ff" stopOpacity={0} />
                     </linearGradient>
                   </defs>
@@ -128,6 +128,7 @@ export default function PriceSection() {
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
+                    dy={10}
                   />
                   <YAxis
                     stroke="rgba(255,255,255,0.3)"
@@ -135,15 +136,23 @@ export default function PriceSection() {
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(val) => `$${val}`}
+                    dx={-10}
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                      backgroundColor: 'rgba(10, 15, 37, 0.9)',
                       borderColor: 'rgba(255,255,255,0.1)',
-                      borderRadius: '12px',
+                      borderRadius: '16px',
                       color: '#fff',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                      backdropFilter: 'blur(10px)',
                     }}
                     itemStyle={{ color: '#00e5ff', fontWeight: 'bold' }}
+                    cursor={{
+                      stroke: 'rgba(0, 229, 255, 0.2)',
+                      strokeWidth: 2,
+                      strokeDasharray: '5 5',
+                    }}
                   />
                   <Area
                     type="monotone"
@@ -152,6 +161,7 @@ export default function PriceSection() {
                     strokeWidth={3}
                     fillOpacity={1}
                     fill="url(#colorPrice)"
+                    animationDuration={1500}
                   />
                 </AreaChart>
               </ResponsiveContainer>
