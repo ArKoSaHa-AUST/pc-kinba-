@@ -38,9 +38,11 @@ export default function Layout({ children }: LayoutProps) {
           left: mousePosition.x,
           top: mousePosition.y,
         }}
-      ></div>
+      />
       <Navbar />
-      <main className="min-h-screen" style={{ paddingTop: '80px' }}>{children}</main>
+      <main className="min-h-screen" style={{ paddingTop: '80px' }}>
+        {children}
+      </main>
       <Footer />
     </>
   );
